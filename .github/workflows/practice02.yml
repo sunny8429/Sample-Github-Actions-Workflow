@@ -24,3 +24,10 @@ jobs:
     steps:
       - name: "Running on main pull request"
         run: echo "Tunning on main pull request"
+
+  on-workflow-dispatch: # Job name
+    if: github.event_name == 'workflow_dispatch' # this condition is used to run the job only when the event is a workflow dispatch
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Running on workflow dispatch"
+        run: echo "Tunning on workflow dispatch"  
