@@ -14,3 +14,5 @@ jobs:
       - name: "Print Hello World" # name of the step
         run: echo "Hello, world!" # to define what should happen in this step we use run key
 
+      - name: "Print current date"
+        run: date
