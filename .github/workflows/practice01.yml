@@ -1,18 +1,19 @@
-name: 'workflow trigger when we push to any branch'
+name: "Hello World workflow" # This is the name of the workflow or this the name of the pipleline
 
-# Controls when the action will run. Triggers the workflow on push to any branch
+# Controls when the action will run. Event to trigger the pipeline. In this case, the pipeline will be triggered when a push is done to main or production branch.
 on:
   push:
     branches:
-      - '**'  # This triggers on any branch
+      - main
+      - production
 
+# Jobs are the steps that are executed in the pipeline. In this case, there is only one job called hello_world.
 jobs:
-  build:
-    runs-on: ubuntu-latest  # Type of machine to run this job on
+  hello_world: # This is the name of the job
+    runs-on: ubuntu-latest # Type of machine to run this job on the machine that will execute the job
     steps:
-    
-      - name: Print workflow information # name of the step
-        run: |
-          echo "Repository: ${{ github.repository }}"  # Prints the repository name in format owner/repo-name
-          echo "Commit SHA: ${{ github.sha }}"  # Prints the full commit SHA (hash) that triggered this workflow
-          echo "Actor: ${{ github.actor }}"  # Prints the GitHub username of the person who triggered this workflow
+      - name: "Print Hello World" # name of the step
+        run: echo "Hello, world!" # to define what should happen in this step we use run key
+
+      - name: "Print current date"
+        run: date

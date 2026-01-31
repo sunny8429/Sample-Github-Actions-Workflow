@@ -1,51 +1,18 @@
-name: "Multiple Event Pipeline"
+name: 'workflow trigger when we push to any branch'
 
+# Controls when the action will run. Triggers the workflow on push to any branch
 on:
-  push: # Event: Whenever a push is made to the repository on the master/test branch.
+  push:
     branches:
-      - main
-      - test
-  pull_request: # Event: Whenever a pull request is made to the repository on the main branch.
-    branches:
-      - main
-    types:
-      - closed
-      - opened
-  workflow_dispatch: # Event: Whenever a workflow is manually triggered. There will be a button to trigger the pipeline in the github actions page.
-
+      - '**'  # This triggers on any branch
 
 jobs:
-  on-push: # Job name
-    if: github.event_name == 'push' # this condition is used to run the job only when the event is a push
-    runs-on: ubuntu-latest 
+  build:
+    runs-on: ubuntu-latest  # Type of machine to run this job on
     steps:
-      - name: "Running on master/test push"
-        run: echo "Tunning on master/test push"
-
-  on-pull-request: # Job name
-    if: github.event_name == 'pull_request' # this condition is used to run the job only when the event is a pull request
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Running on main pull request"
-        run: echo "Tunning on main pull request"
-  
-  on-pull-request-opened: # Job name
-    if: github.event_name == 'pull_request' && github.event.action == 'opened' # this condition is used to run the job only when the event is a pull request and the pull request is opened
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Running on pull request opened"
-        run: echo "Tunning on pull request opened"
-
-  on-pull-request-closed: # Job name
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' # this condition is used to run the job only when the event is a pull request and the pull request is closed
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Running on pull request closed"
-        run: echo "Tunning on pull request closed"
-
-  on-workflow-dispatch: # Job name
-    if: github.event_name == 'workflow_dispatch' # this condition is used to run the job only when the event is a workflow dispatch
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Running on workflow dispatch"
-        run: echo "Tunning on workflow dispatch"  
+    
+      - name: Print workflow information # name of the step
+        run: |
+          echo "Repository: ${{ github.repository }}"  # Prints the repository name in format owner/repo-name
+          echo "Commit SHA: ${{ github.sha }}"  # Prints the full commit SHA (hash) that triggered this workflow
+          echo "Actor: ${{ github.actor }}"  # Prints the GitHub username of the person who triggered this workflow
