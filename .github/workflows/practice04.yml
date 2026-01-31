@@ -1,0 +1,19 @@
+name: Scheduled workflow at 10 PM every Monday
+
+# Triggers the workflow on a schedule (cron syntax uses UTC time)
+on:
+  schedule:
+    # Runs every Monday at 10:00 PM UTC
+    # Format: minute hour day month day-of-week
+    - cron: '0 22 * * 1'  # 22:00 UTC = 10 PM UTC, 1 = Monday
+
+jobs:
+  scheduled_job:
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Print scheduled run time
+        run: |
+          echo "Workflow triggered at: $(date)"
+          echo "Running scheduled task every Monday at 10 PM"
+      
